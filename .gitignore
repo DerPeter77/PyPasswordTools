@@ -169,3 +169,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# passwords file
+passwords.json
+*.txt
+*.png
