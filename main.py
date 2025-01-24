@@ -57,29 +57,11 @@ def rate_password(password: str):
     if password in unsafewords:
         return "Schwach"
 
-    # Pattern Matching with 3 same symbols
-    password_list = []
-    for symbol in password:
-        password_list.append(symbol)
+    if check_same_symbols(password, 3):
+        score -= 4
+    elif check_same_symbols(password, 2):
+        score -= 2
 
-    for index, symbol in enumerate(password_list):
-        # 3 same symbols following
-        try:
-            next_index = index + 1
-            overnext_index = next_index + 1
-            if symbol == password_list[next_index] == password_list[overnext_index]:
-                score -= 4
-                break
-        except IndexError:
-            pass
-
-        # 2 same symbols following
-        try:
-            next_index = index + 1
-            if symbol == password_list[next_index]:
-                score -= 2
-        except IndexError:
-            pass
 
     # Return with score
     if score > 10:
@@ -88,6 +70,15 @@ def rate_password(password: str):
         return "Mittelstark"
     else:
         return "Schwach"
+
+
+def check_same_symbols(password: str, same_symbol_count: int) -> int:
+    if same_symbol_count > 1:
+        for i in range(len(password) - same_symbol_count + 1):
+            if password[i:i+same_symbol_count] == password[i] * same_symbol_count:
+                return True
+
+        return False
 
 
 def save_password(name: str, username: str, password: str):
