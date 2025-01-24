@@ -69,7 +69,6 @@ def rate_password(password: str):
             overnext_index = next_index + 1
             if symbol == password_list[next_index] == password_list[overnext_index]:
                 score -= 4
-                print(score, "3 hintereinander")
                 break
         except IndexError:
             pass
@@ -79,7 +78,6 @@ def rate_password(password: str):
             next_index = index + 1
             if symbol == password_list[next_index]:
                 score -= 2
-                print(score, "2 hintereinander")
         except IndexError:
             pass
 
