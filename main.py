@@ -48,6 +48,7 @@ def rate_password(password: str):
     if len(password) > 15:
         score += 3
 
+    # Compares with unsafe word file
     unsafewords = []
     with open('unsafewords.txt', "r") as file:
         for i in file.readlines():
@@ -55,6 +56,32 @@ def rate_password(password: str):
 
     if password in unsafewords:
         return "Schwach"
+
+    # Pattern Matching with 3 same symbols
+    password_list = []
+    for symbol in password:
+        password_list.append(symbol)
+
+    for index, symbol in enumerate(password_list):
+        # 3 same symbols following
+        try:
+            next_index = index + 1
+            overnext_index = next_index + 1
+            if symbol == password_list[next_index] == password_list[overnext_index]:
+                score -= 4
+                print(score, "3 hintereinander")
+                break
+        except IndexError:
+            pass
+
+        # 2 same symbols following
+        try:
+            next_index = index + 1
+            if symbol == password_list[next_index]:
+                score -= 2
+                print(score, "2 hintereinander")
+        except IndexError:
+            pass
 
     # Return with score
     if score > 10:
