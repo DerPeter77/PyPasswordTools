@@ -37,13 +37,13 @@ class Windows:
         console.print(welcomeText, style="cyan")
         print_spaces(2)
         print("""
-                    | -------------------------------------------- |
-                    | [0] - Programm beenden                       |
-                    | [1] - Passwort Generieren                    |
-                    | [2] - Passwort Bewerten                      |
-                    | [3] - Passwort Speichern                     |
-                    | [4] - Gespeicherte Passwörter anzeigen       |
-                    | -------------------------------------------- |
+                        + -------------------------------------------- +
+                        | [0] - Programm beenden                       |
+                        | [1] - Passwort Generieren                    |
+                        | [2] - Passwort Bewerten                      |
+                        | [3] - Passwort Speichern                     |
+                        | [4] - Gespeicherte Passwörter anzeigen       |
+                        + -------------------------------------------- +
 """)
         # print("[0] - Programm beenden")
         # print("[1] - Passwort Generieren")
