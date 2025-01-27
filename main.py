@@ -62,7 +62,6 @@ def rate_password(password: str):
     elif check_same_symbols(password, 2):
         score -= 2
 
-
     # Return with score
     if score > 10:
         return "Stark"
@@ -72,10 +71,10 @@ def rate_password(password: str):
         return "Schwach"
 
 
-def check_same_symbols(password: str, same_symbol_count: int) -> int:
+def check_same_symbols(password: str, same_symbol_count: int) -> bool:
     if same_symbol_count > 1:
         for i in range(len(password) - same_symbol_count + 1):
-            if password[i:i+same_symbol_count] == password[i] * same_symbol_count:
+            if password[i:i+same_symbol_count] == password[i] * same_symbol_count:  # noqa
                 return True
 
         return False
