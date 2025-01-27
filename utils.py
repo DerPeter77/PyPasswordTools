@@ -43,6 +43,7 @@ class Windows:
                         | [2] - Passwort Bewerten                      |
                         | [3] - Passwort Speichern                     |
                         | [4] - Gespeicherte Passwörter anzeigen       |
+                        | [5] - Gespeicherte Passwörter löschen        |
                         + -------------------------------------------- +
 """)
         print_spaces(2)
@@ -57,6 +58,8 @@ class Windows:
             self.save_password()
         elif selected_menu == "4":
             self.show_passwords()
+        elif selected_menu == "5":
+            self.delete_all()
         else:
             self.main_menu()
 
@@ -202,7 +205,7 @@ class Windows:
 
             delete = input(
                 "Möchten Sie die gespeicherten Passwörter löschen? [j/n] ")
-            if delete.lower() == "j":
+            if delete.lower() in ["j", "ja", "y", "yes"]:
                 which = input("Welches Passwort möchten Sie löschen? (Name) ")
                 for entry in passwords:
                     if entry['name'] == which:
@@ -212,3 +215,12 @@ class Windows:
                             print("Passwort gelöscht")
 
         self.back_to_menu()
+
+    def delete_all(self):
+        console.print("Bist du sicher, dass du alles [bold]LÖSCHEN[/bold] willst?") # noqa
+        delete = input("[j / n]")
+        if delete in ["j", "ja", "y", "yes"]:
+            os.remove("passwords.json")
+            console.print("[bold]ALLE Passwörter wurden [red]GELÖSCHT[/red][/bold]")    # noqa
+        else:
+            console.print("[bold]Passwörter wurden [red]NICHT[/red] gelöscht![/bold]")  # noqa
