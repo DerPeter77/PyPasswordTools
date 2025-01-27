@@ -1,11 +1,47 @@
 import random
 import json
+
+import cryptography.fernet
 import utils
+from cryptography.fernet import Fernet
+import cryptography
 
 LOWER = 'abcdefghijklmnopqrstuvwxyz'
 UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 DIGITS = '0123456789'
 PUNCTUATION = r"""!"#$%&'()*+,-.:;<=>?@^_`{|}~"""
+
+
+def generate_key():
+    key = Fernet.generate_key()
+    with open("secret.key", "wb") as key_file:
+        key_file.write(key)
+
+
+def load_key():
+    return open("secret.key", "rb").read()
+
+
+try:
+    key = load_key()
+    KEY = key
+except FileNotFoundError:
+    generate_key()
+
+
+def encrypt_password(password: str, key: bytes) -> str:
+    f = Fernet(key)
+    encrypted_password = f.encrypt(password.encode())
+    return encrypted_password.decode()
+
+
+def decrypt_password(encrypted_password: str, key: bytes) -> str:
+    f = Fernet(key)
+    try:
+        decrypted_password = f.decrypt(encrypted_password.encode())
+        return decrypted_password.decode()
+    except cryptography.fernet.InvalidToken:
+        return "Invalid Token"
 
 
 def generate_password(length: int, anzahl: int, chosen_characters: str):
@@ -81,10 +117,13 @@ def check_same_symbols(password: str, same_symbol_count: int) -> bool:
 
 
 def save_password(name: str, username: str, password: str):
+    key = load_key()
+    encrypted_password = encrypt_password(password, key)
+
     data = {
         "name": name,
         "username": username,
-        "password": password
+        "password": encrypted_password
     }
 
     try:
@@ -100,12 +139,15 @@ def save_password(name: str, username: str, password: str):
 
 
 def get_passwords():
+    key = load_key()
     try:
         with open('passwords.json', 'r') as file:
             passwords = json.load(file)
             if not passwords:
                 return False
             else:
+                for entry in passwords:
+                    entry['password'] = decrypt_password(entry['password'], key)    # noqa
                 return passwords
     except (FileNotFoundError, json.JSONDecodeError):
         return False
@@ -116,4 +158,8 @@ def main():
 
 
 if __name__ == "__main__":
+    try:
+        load_key()
+    except FileNotFoundError:
+        generate_key()
     main()
