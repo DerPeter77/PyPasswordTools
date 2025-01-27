@@ -217,10 +217,17 @@ class Windows:
         self.back_to_menu()
 
     def delete_all(self):
-        console.print("Bist du sicher, dass du alles [bold]LÖSCHEN[/bold] willst?") # noqa
-        delete = input("[j / n]")
+        console.print("Bist du sicher, dass du alles [bold red]LÖSCHEN[/bold red] willst?") # noqa
+        delete = input("[j/n] ")
         if delete in ["j", "ja", "y", "yes"]:
-            os.remove("passwords.json")
-            console.print("[bold]ALLE Passwörter wurden [red]GELÖSCHT[/red][/bold]")    # noqa
+            try:
+                os.remove("passwords.json")
+            except FileNotFoundError:
+                console.print("\nEs wurde [bold red]keine Passwörter[/bold red] gefunden!\n")
+                self.back_to_menu()
+                return
+            console.print("\n[bold]ALLE Passwörter wurden [red]GELÖSCHT[/red][/bold]\n")    # noqa
+            self.back_to_menu()
         else:
-            console.print("[bold]Passwörter wurden [red]NICHT[/red] gelöscht![/bold]")  # noqa
+            console.print("\n[bold]Passwörter wurden [red]NICHT[/red] gelöscht![/bold]\n")  # noqa
+            self.back_to_menu()

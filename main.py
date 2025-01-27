@@ -1,6 +1,5 @@
 import random
 import json
-
 import cryptography.fernet
 import utils
 from cryptography.fernet import Fernet
