@@ -45,11 +45,6 @@ class Windows:
                         | [4] - Gespeicherte Passwörter anzeigen       |
                         + -------------------------------------------- +
 """)
-        # print("[0] - Programm beenden")
-        # print("[1] - Passwort Generieren")
-        # print("[2] - Passwort Bewerten")
-        # print("[3] - Passwort Speichern")
-        # print("[4] - Gespeicherte Passwörter anzeigen")
         print_spaces(2)
         selected_menu = input("Bitte wählen Sie eine Option:   ")
         if selected_menu == "0":
