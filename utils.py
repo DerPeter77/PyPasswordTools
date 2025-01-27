@@ -119,7 +119,7 @@ class Windows:
             console.print(f"Passwörter wurden in [bold]{
                           filename}.txt[/bold] gespeichert", style="green")
 
-        # Save Passwords in Database
+        # Save Passwords in JSON File
         save_to_json = input("Sollen die Passwörter in der Anwendung gespeichert werden? [j/n] ")    # noqa
         console.print("[bold]---------------------[/bold]", style="cyan")
         if save_to_json.lower() in ["j", "ja", "y", "yes"]:
@@ -130,22 +130,8 @@ class Windows:
                     "[bold]---------------------[/bold]", style="cyan")
                 name = input("Bitte geben Sie den Namen der Website ein: ")
                 username = input("Bitte geben Sie den Benutzernamen ein: ")
-                data = {
-                    "name": name,
-                    "username": username,
-                    "password": password
-                }
 
-                try:
-                    with open('passwords.json', 'r') as file:
-                        passwords = json.load(file)
-                except (FileNotFoundError, json.JSONDecodeError):
-                    passwords = []
-
-                passwords.append(data)
-
-                with open('passwords.json', 'w') as file:
-                    json.dump(passwords, file, indent=4)
+                main.save_password(name, username, password)
 
         self.back_to_menu()
 
