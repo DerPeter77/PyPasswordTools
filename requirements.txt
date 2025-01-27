@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 cffi==1.17.1
 cryptography==44.0.0
 markdown-it-py==3.0.0
@@ -5,3 +6,7 @@ mdurl==0.1.2
 pycparser==2.22
 Pygments==2.19.1
 rich==13.9.4
+=======
+rich
+cryptography
+>>>>>>> 1737449432fa2ef8af3b7ca8ceb9506638e7c65f
