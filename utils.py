@@ -209,7 +209,7 @@ class Windows:
             try:
                 os.remove("passwords.json")
             except FileNotFoundError:
-                console.print("\nEs wurde [bold red]keine Passwörter[/bold red] gefunden!\n")
+                console.print("\nEs wurde [bold red]keine Passwörter[/bold red] gefunden!\n")   # noqa
                 self.back_to_menu()
                 return
             console.print("\n[bold]ALLE Passwörter wurden [red]GELÖSCHT[/red][/bold]\n")    # noqa
